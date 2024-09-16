@@ -202,3 +202,83 @@ class Solution {
     }
 }
 ```
+
+#### 59.螺旋矩阵||
+>给你一个正整数 n ，生成一个包含 1 到 n2 所有元素，且元素按顺时针顺序螺旋排列的 n x n 正方形矩阵 matrix 。
+
+>示例:
+1 2 3
+6 7 4
+9 8 5
+
+>输入：n = 3
+输出：[ [1,2,3],[8,9,4],[7,6,5] ]
+示例 2：
+输入：n = 1
+输出：[ [1] ]
+
+```java
+class Solution {
+    public static int[][] generateMatrix(int n) {
+        int[][] result = new int[n][n];
+
+        int up = 0;
+        int down = n - 1;
+        int left = 0;
+        int right = n - 1;
+        int num = 1;//填入的数字(初始为1)
+
+        while(num <= n*n){
+            //1.如果n=1 数组就一个元素,则填入1,直接退出循环
+            if(n == 1) {
+                result[0][0] = 1; 
+                break;
+            }
+
+            //2.n != 1时循环成立
+            //从左到右
+            for(int i = left; i <= right; i++){
+                result[up][i] = num++;
+            }
+            up++;//上界下移
+
+            //从上到下
+            for(int i = up; i <= down; i++){
+                result[i][right] = num++;
+            }
+            right--;//右界左移
+
+
+            //从右到左
+            if(up <= down){
+                for(int i = right; i >= left; i--){
+                    result[down][i] = num++;
+                }
+                down--;//下届上移
+            }
+
+
+            //从下到上
+            if(left <= right){
+                for(int i = down; i >= up; i--){
+                    result[i][left] = num++;
+                }
+                left++;//左界右移
+            }
+
+
+        }
+
+        return result;
+    }
+}
+
+```
+
+#### 
+
+
+
+```java
+
+```
