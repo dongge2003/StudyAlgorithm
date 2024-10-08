@@ -4,11 +4,12 @@
 >给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。
 
 >示例 1:
-输入: nums = [-1,0,3,5,9,12], target = 9
+>>输入: nums = [-1,0,3,5,9,12], target = 9
 输出: 4
-解释: 9 出现在 nums 中并且下标为 4
-示例 2:
-输入: nums = [-1,0,3,5,9,12], target = 2
+解释: 9 出现在 nums 中并且下标为 4 
+
+>示例 2:
+>>输入: nums = [-1,0,3,5,9,12], target = 2
 输出: -1
 解释: 2 不存在 nums 中因此返回 -1
 
@@ -54,12 +55,13 @@ class Solution {
 返回 k。
 
 >示例 1：
-输入：nums = [3,2,2,3], val = 3
+>>输入：nums = [3,2,2,3], val = 3
 输出：2, nums = [2,2,_,_]
 解释：你的函数函数应该返回 k = 2, 并且 nums 中的前两个元素均为 2。
-你在返回的 k 个元素之外留下了什么并不重要（因此它们并不计入评测）。
-示例 2：
-输入：nums = [0,1,2,2,3,0,4,2], val = 2
+你在返回的 k 个元素之外留下了什么并不重要（因此它们并不计入评测）。 
+
+>示例 2：
+>>输入：nums = [0,1,2,2,3,0,4,2], val = 2
 输出：5, nums = [0,1,4,0,3,_,_,_]
 解释：你的函数应该返回 k = 5，并且 nums 中的前五个元素为 0,0,1,3,4。
 注意这五个元素可以任意顺序返回。
@@ -92,12 +94,13 @@ class Solution {
 >给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。
 
 >示例 1：
-输入：nums = [-4,-1,0,3,10]
+>>输入：nums = [-4,-1,0,3,10]
 输出：[0,1,9,16,100]
 解释：平方后，数组变为 [16,1,0,9,100]
-排序后，数组变为 [0,1,9,16,100]
-示例 2：
-输入：nums = [-7,-3,2,3,11]
+排序后，数组变为 [0,1,9,16,100] 
+
+>示例 2：
+>>输入：nums = [-7,-3,2,3,11]
 输出：[4,9,9,49,121]
 
 ```java
@@ -147,15 +150,18 @@ class Solution {
 [numsl, numsl+1, ..., numsr-1, numsr] ，并返回其长度。如果不存在符合条件的子数组，返回 0 。
 
 >示例 1：
-输入：target = 7, nums = [2,3,1,2,4,3]
+>>输入：target = 7, nums = [2,3,1,2,4,3]
 输出：2
-解释：子数组 [4,3] 是该条件下的长度最小的子数组。
-示例 2：
-输入：target = 4, nums = [1,4,4]
-输出：1
-示例 3：
-输入：target = 11, nums = [1,1,1,1,1,1,1,1]
+解释：子数组 [4,3] 是该条件下的长度最小的子数组。 
+
+>示例 2：
+>>输入：target = 4, nums = [1,4,4]
+输出：1 
+
+>示例 3：
+>>输入：target = 11, nums = [1,1,1,1,1,1,1,1]
 输出：0
+
 ```java
 class Solution {
     public int minSubArrayLen(int target, int[] nums) {
@@ -210,8 +216,7 @@ class Solution {
 1 2 3
 6 7 4
 9 8 5
-
->输入：n = 3
+>>输入：n = 3
 输出：[ [1,2,3],[8,9,4],[7,6,5] ]
 示例 2：
 输入：n = 1
@@ -275,9 +280,73 @@ class Solution {
 
 ```
 
-#### 
+#### 203. 移除链表元素
 
+给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。
+ 
 
+>示例 1：
+>>输入：head = [1,2,6,3,4,5,6], val = 6
+输出：[1,2,3,4,5] 
+
+>示例 2：
+>>输入：head = [], val = 1
+输出：[] 
+
+>示例 3：
+>>输入：head = [7,7,7,7], val = 7
+输出：[]
+
+```java
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution 
+{
+    public ListNode removeElements(ListNode head, int val) 
+    {
+        // 删除头节点值等于val的节点
+        while (head != null && head.val == val){
+            head = head.next; // 更新头节点
+        }
+
+        // 遍历链表，找到所有值为val的节点并删除
+        ListNode temp = head;
+        while (temp != null && temp.next != null){
+            if (temp.next.val == val){
+                temp.next = temp.next.next;//删除操作(前结点的指针,指向他的下下个结点)
+            } else {
+                temp = temp.next;//指针后移
+            }
+        }
+
+        return head;
+        
+        /*
+        头结点的值为val的问题:
+            如:[1,1,1,1]  val = 1
+            循环遍历找到头结点不为val的结点,把它定为头结点
+
+        中间结点的值为val的问题:
+            定义一个临时结点指向头结点
+            (如果临时结点执向head.next 如果head.next的值为val
+            则无法删除该结点,因为需要前一个结点的指针指向删除结点的后一个结点)
+            找到该结点则执行删除该结点操作
+            然后指针后移
+
+        */
+    }
+}
+``` 
+
+### 
 
 ```java
 
